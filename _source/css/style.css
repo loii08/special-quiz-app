@@ -31,6 +31,9 @@ body {
   padding: 20px;
   overflow-x: hidden;
   transition: background 0.8s ease;
+  /* Added for subtle background animation */
+  background-size: 200% 200%;
+  animation: gradient-animation 15s ease infinite;
 }
 
 /* Hearts Day Theme */
@@ -357,13 +360,16 @@ body.easter {
 
 @keyframes button-pulse {
   0% {
-    transform: scale(1);
+    transform: scale(1.0);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
   50% {
     transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
   }
   100% {
-    transform: scale(1);
+    transform: scale(1.0);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
 }
 
@@ -607,6 +613,24 @@ body.easter {
   will-change: transform, opacity;
 }
 
+/* Class to trigger the pop animation on click */
+.floating-emoji.popped {
+  /* Use the new pop animation */
+  animation: emoji-pop 0.5s ease-out forwards;
+  /* 'forwards' will keep the final state of the animation (faded out) */
+}
+
+@keyframes emoji-pop {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
 @keyframes float-enhanced {
   0% {
     transform: translateY(0) rotate(0deg) scale(0.8);
@@ -685,6 +709,19 @@ body.easter {
   100% {
     transform: scale(0) rotate(360deg);
     opacity: 0;
+  }
+}
+
+/* Keyframes for subtle background gradient animation */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

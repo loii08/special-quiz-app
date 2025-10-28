@@ -375,13 +375,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const duration = 8 + Math.random() * 7;
     element.style.animationDuration = `${duration}s`;
     
+    // --- Make it interactive! ---
+    const clickHandler = () => {
+      // Add the 'popped' class to trigger the new animation
+      element.classList.add('popped');
+      // Remove the element from the DOM after the pop animation finishes
+      setTimeout(() => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      }, 500); // 500ms matches the 'emoji-pop' animation duration
+      element.removeEventListener('click', clickHandler); // Prevent multiple clicks
+    };
+    element.addEventListener('click', clickHandler);
+    // -----------------------------
+
     document.body.appendChild(element);
     
-    setTimeout(() => {
-      if (element.parentNode) {
-        element.parentNode.removeChild(element);
-      }
-    }, duration * 1000);
   }
   
   /**
