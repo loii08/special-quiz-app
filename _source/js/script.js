@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function initializeApp() {
     try {
-      const response = await fetch('game-data.json');
+      const response = await fetch('_source/js/game-data.json');
       if (!response.ok) throw new Error('Network response was not ok for game data.');
       const gameData = await response.json();
       questions = gameData.questions;
