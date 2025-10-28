@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChanLoii</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="card quote-card" id="quoteContainer">
+      <div id="quoteSourceIndicator" class="quote-source-indicator"></div>
+      <blockquote class="quote-text" id="quoteText">Loading...</blockquote>
+      <figcaption class="quote-author" id="quoteAuthor"></figcaption>
+    </div>
+
+    <div class="card date-details-card hidden" id="dateDetailsCard">
+      <div class="date-display-container">
+        <div class="date-item">
+          <div class="date-label">Start Date</div>
+          <div class="date-value-display" id="startDateDisplay">Loading...</div>
+        </div>
+        
+        <div class="date-divider" aria-hidden="true">→</div>
+        
+        <div class="date-item">
+          <div class="date-label">Today's Date</div>
+          <div class="date-value-display" id="endDateDisplay">Loading...</div>
+        </div>
+      </div>
+      
+      <div class="time-span">
+        <div class="span-title">Chan Loii</div>
+        
+        <div class="time-breakdown">
+          <div class="time-unit">
+            <div class="time-value" id="years">0</div>
+            <div class="time-label">Years</div>
+          </div>
+          
+          <div class="time-unit">
+            <div class="time-value" id="months">0</div>
+            <div class="time-label">Months</div>
+          </div>
+          
+          <div class="time-unit">
+            <div class="time-value" id="days">0</div>
+            <div class="time-label">Days</div>
+          </div>
+        </div>
+        
+        <div class="total-container">
+          <div class="total-days" id="totalDays">Total: 0 days</div>
+          <div class="total-months" id="totalMonths">Total: 0 months</div>
+        </div>
+      </div>
+    </div>
+    
+    <button class="interactive-button" id="showDetailsBtn">Unlock Our Story 💖</button>
+
+    <footer class="footer">
+      ChanLoii © 2025 • Created by Kenneth
+    </footer>
+  </div>
+
+  <!-- Q&A Modal -->
+  <div class="modal-overlay hidden" id="qaModal">
+    <div class="modal-content">
+      <h3 id="qaQuestion">Question?</h3>
+      <div class="modal-score" id="modalScore">Score: 0 / 3</div>
+      <input type="text" id="qaInput" placeholder="Your answer...">
+      <div class="modal-buttons">
+        <button id="qaSubmitBtn">Submit</button>
+        <button id="qaCloseBtn" class="close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div class="modal-overlay hidden" id="resultModal">
+    <div class="modal-content result-modal-content">
+      <span class="result-emoji" id="resultEmoji"></span>
+      <p id="resultMessage"></p>
+      <div class="modal-buttons">
+        <button id="resultCloseBtn" class="close-btn">Close</button>
+        <button id="tryAgainBtn">Try Again</button>
+        <button id="cancelBtn" class="close-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
