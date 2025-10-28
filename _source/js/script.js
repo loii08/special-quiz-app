@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const fixedStartDate = "2023-02-23";
+  const fixedStartDate = "2021-02-23";
 
   // Cache DOM elements
   const dom = {
