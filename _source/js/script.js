@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); 
     
-    const diffMonths = (diffDays / 30.436875).toFixed(1);
+    const diffMonths = Math.floor(diffDays / 30.436875);
     
     dom.totalDays.textContent = `Total: ${diffDays.toLocaleString()} days`;
     dom.totalMonths.textContent = `Total: ${diffMonths} months`;
