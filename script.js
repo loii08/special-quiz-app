@@ -405,11 +405,13 @@ document.addEventListener("DOMContentLoaded", () => {
    * Displays a random quote with animation
    */
   async function displayRandomQuote() {
-    // Animate out
-    dom.quoteContainer.classList.add('fade-out');
+    // Animate out the text only
+    dom.quoteText.classList.add('text-fade-out');
+    dom.quoteAuthor.classList.add('text-fade-out');
 
     // Wait for fade-out to complete before fetching new content
     setTimeout(async () => {
+      
       // Fetch new content
       try {
         const response = await fetch("https://api.realinspire.live/v1/quotes/random");
@@ -430,12 +432,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Animate in with new content
       // Select a random animation for the new quote to enter with
+      dom.quoteText.classList.remove('text-fade-out');
+      dom.quoteAuthor.classList.remove('text-fade-out');
+
       const randomAnimation = animationTypes[Math.floor(Math.random() * animationTypes.length)];
-      dom.quoteContainer.classList.remove('fade-out');
-      dom.quoteContainer.classList.add(randomAnimation);
+      dom.quoteText.classList.add(randomAnimation);
+      dom.quoteAuthor.classList.add(randomAnimation);
 
       requestAnimationFrame(() => {
-        dom.quoteContainer.classList.remove(randomAnimation);
+        dom.quoteText.classList.remove(randomAnimation);
+        dom.quoteAuthor.classList.remove(randomAnimation);
       });
 
       // Schedule the next quote change

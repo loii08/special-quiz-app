@@ -111,7 +111,7 @@ body.easter {
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */ /* Removing hover effect */
 }
 
 .card::before {
@@ -501,6 +501,11 @@ body.easter {
 .fade-out {
   opacity: 0;
   transition: opacity 0.5s ease;
+}
+
+.text-fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
 }
 
 .fade-in {
