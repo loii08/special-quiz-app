@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let questions = [];
   let wrongMessages = [];
   let cancelMessages = [];
+  let correctlyAnsweredIDs = [];
 
   let currentQuestion = null;
   let detailsTimeout = null;
@@ -521,6 +522,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!userAnswer) return;
 
     if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
+      if (currentQuestion && !correctlyAnsweredIDs.includes(currentQuestion.ID)) {
+        correctlyAnsweredIDs.push(currentQuestion.ID);
+      }
       handleCorrectAnswer();
     } else {
       handleWrongAnswer();
@@ -532,8 +536,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update score display inside the modal
     dom.modalScore.textContent = `Score: ${score} / ${scoreGoal}`;
 
+    // If we've run out of unique questions, reset the pool
+    if (availableQuestions.length === 0) {
+      availableQuestions = [...questions];
+    }
+
     // Select a random question
-    currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+    currentQuestion = availableQuestions[questionIndex];
+
     dom.qaQuestion.textContent = currentQuestion.question;
     showModal(dom.qaModal);
     dom.qaInput.focus();
@@ -541,9 +552,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Event Listeners ---
   dom.showDetailsBtn.addEventListener('click', () => {
+    // When a new game starts, remove the last answered question from the pool
+    if (currentQuestion) {
+      availableQuestions.splice(availableQuestions.indexOf(currentQuestion), 1);
+    }
     // Reset game state when starting a new game
     score = 0;
     wrongAnswerCount = 0;
+    availableQuestions = [...questions]; // Create a fresh pool of questions
     askNewQuestion();
   });
 
@@ -551,6 +567,14 @@ document.addEventListener("DOMContentLoaded", () => {
     dom.tryAgainBtn.textContent = "Try Again"; // Reset button text
     hideModal(dom.resultModal);
     askNewQuestion();
+  });
+  
+  dom.qaSubmitBtn.addEventListener('click', () => {
+    checkAnswer();
+    // Remove the answered question from the pool if correct
+    if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
+      availableQuestions.splice(availableQuestions.indexOf(currentQuestion), 1);
+    }
   });
 
   dom.qaSubmitBtn.addEventListener('click', checkAnswer);
@@ -565,7 +589,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // If user made a mistake, closing is treated as cancelling.
       dom.cancelBtn.click(); // Programmatically click the cancel button
     } else {
-      // If no mistakes, just close the modal.
+      // If no mistakes, just close the modal and reset the game.
+      correctlyAnsweredIDs = [];
       hideModal(dom.qaModal);
     }
   });
