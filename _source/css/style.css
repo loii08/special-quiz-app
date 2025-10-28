@@ -6,7 +6,7 @@
   --dark: #0E0E0E; /* Base Black */
   --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   --card-bg: #1A1A1A; /* Dark Gray */
-  --body-bg: linear-gradient(135deg, #0E0E0E 0%, #1A1A1A 100%); /* Base Black to Dark Gray */
+  --body-bg: radial-gradient(ellipse at center, #1A1A1A 0%, #0E0E0E 100%); /* Dark Gray to Base Black */
 }
 
 html {
