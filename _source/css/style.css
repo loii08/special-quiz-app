@@ -1,12 +1,12 @@
 :root {
-  --primary: #FFD700; /* Gold Accent */
-  --secondary: #E6BE8A; /* Muted Gold / Hover */
-  --accent: #E6BE8A; /* Muted Gold */
-  --light: #FAF7F0; /* Warm White */
-  --dark: #0E0E0E; /* Base Black */
+  --primary: #FFD700;
+  --secondary: #E6BE8A;
+  --accent: #E6BE8A;
+  --light: #FAF7F0;
+  --dark: #0E0E0E;
   --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  --card-bg: #1A1A1A; /* Dark Gray */
-  --body-bg: radial-gradient(ellipse at center, #1A1A1A 0%, #0E0E0E 100%); /* Dark Gray to Base Black */
+  --card-bg: #1A1A1A;
+  --body-bg: radial-gradient(ellipse at center, #1A1A1A 0%, #0E0E0E 100%);
 }
 
 html {
@@ -34,14 +34,14 @@ body {
 }
 
 body.light-mode {
-  --primary: #c7a265; /* Darker Muted Gold for better contrast */
-  --secondary: #e6be8a; /* Muted Gold */
-  --accent: #FFD700; /* Gold Accent */
-  --light: #0E0E0E; /* Base Black for text */
-  --dark: #FAF7F0; /* Warm White for backgrounds */
+  --primary: #c7a265;
+  --secondary: #e6be8a;
+  --accent: #FFD700;
+  --light: #0E0E0E;
+  --dark: #FAF7F0;
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --card-bg: #ffffff; /* Solid White */
-  --body-bg: linear-gradient(135deg, #FAF7F0 0%, #f0eada 100%); /* Warm White gradient */
+  --card-bg: #ffffff;
+  --body-bg: linear-gradient(135deg, #FAF7F0 0%, #f0eada 100%);
   color: var(--light);
 }
 
@@ -59,6 +59,14 @@ body.anniversary {
   --accent: #ffb74d;
   --body-bg: linear-gradient(135deg, #ffecb3 0%, #ffd54f 100%);
   --card-bg: #fff8e1;
+}
+
+body.valentines {
+  --primary: #d81b60;
+  --secondary: #c2185b;
+  --accent: #ff80ab;
+  --body-bg: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  --card-bg: #ffffff;
 }
 
 body.halloween {
@@ -126,6 +134,8 @@ body.easter {
   right: 0;
   height: 6px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .halloween .card::after {
@@ -347,8 +357,7 @@ body.easter {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   margin-top: 20px;
-  /* animation: button-pulse 2s infinite; */
-  border: none;
+  animation: button-pulse 2s infinite;
 }
 
 .interactive-button:hover {
@@ -438,7 +447,7 @@ body.easter {
 .modal-content input::placeholder {
   color: rgba(var(--light-rgb), 0.5);
 }
-.modal-content input:focus, .light-mode .modal-content input:focus {
+.modal-content input:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -589,26 +598,13 @@ body.easter {
   transition: transform 0.7s ease, opacity 0.7s ease;
 }
 
-.floating-heart {
-  position: fixed;
-  font-size: 28px;
-  color: var(--primary);
-  z-index: 9998;
-  pointer-events: none;
-  animation: float-enhanced 8s linear infinite;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-  left: calc(100vw * var(--random-left, 0.5));
-  top: -10vh;
-  will-change: transform, opacity;
-}
-
+.floating-heart,
 .floating-emoji {
   position: fixed;
-  font-size: 32px;
+  font-size: 28px;
   z-index: 9999;
   pointer-events: none;
-  animation: float-enhanced 10s linear infinite;
+  animation: float-enhanced 8s linear infinite;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
   left: calc(100vw * var(--random-left, 0.5));

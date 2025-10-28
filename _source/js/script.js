@@ -42,8 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let wrongAnswerCount = 0;
   const scoreGoal = 5;
 
+  // --- Modal Management ---
   function showModal(modal) {
     modal.classList.remove('hidden');
+    trapFocus(modal);
   }
 
   function hideModal(modal) {
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     hideModal(dom.resultModal);
   }
 
+  // --- Core Logic & Display ---
   let activeIntervals = [];
 
   const localQuotes = [
@@ -116,6 +119,57 @@ document.addEventListener("DOMContentLoaded", () => {
     dom.days.textContent = days;
   }
   
+  const specialOccasions = [
+    {
+      name: 'anniversary',
+      condition: (start, current) => start.getMonth() === current.getMonth() && start.getDate() === current.getDate(),
+      message: "🎉 Happy Anniversary! 🎉",
+      effects: [
+        { type: 'hearts', interval: 1200 },
+        { type: 'emojis', interval: 1800 },
+        { type: 'confetti', interval: 1000 }
+      ]
+    },
+    {
+      name: 'valentines',
+      condition: (start, current) => current.getMonth() === 1 && current.getDate() === 14,
+      message: "💖 Happy Valentine's Day! 💖",
+      effects: [
+        { type: 'hearts', interval: 800 },
+        { type: 'emojis', interval: 1200 }
+      ]
+    },
+    {
+      name: 'hearts-day',
+      condition: (start, current) => start.getDate() === current.getDate(),
+      message: "❤️ Happy Monthsary! ❤️",
+      effects: [ { type: 'hearts', interval: 1500 }, { type: 'emojis', interval: 2000 } ]
+    },
+    {
+      name: 'halloween',
+      condition: (start, current) => current.getMonth() === 9 && current.getDate() === 31,
+      message: "🎃 Happy Halloween! 🎃",
+      effects: [ { type: 'halloween', interval: 1500 } ]
+    },
+    {
+      name: 'christmas',
+      condition: (start, current) => current.getMonth() === 11 && current.getDate() === 25,
+      message: "🎄 Merry Christmas! 🎄",
+      effects: [ { type: 'christmas', interval: 1300 }, { type: 'confetti', interval: 1600 } ]
+    },
+    {
+      name: 'new-year',
+      condition: (start, current) => current.getMonth() === 0 && current.getDate() === 1,
+      message: "🎆 Happy New Year! 🎆",
+      effects: [ { type: 'new-year', interval: 1000 }, { type: 'confetti', interval: 800 } ]
+    },
+    {
+      name: 'easter',
+      condition: (start, current) => { const easter = calculateEaster(current.getFullYear()); return current.getMonth() === easter.getMonth() && current.getDate() === easter.getDate(); },
+      message: "🐰 Happy Easter! 🐰",
+      effects: [ { type: 'easter', interval: 1500 } ]
+    }
+  ];
   function checkSpecialOccasions(startDate, currentDate) {
     const startDay = startDate.getDate();
     const startMonth = startDate.getMonth();
@@ -124,38 +178,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
-    if (startMonth === currentMonth && startDay === currentDay) {
-      applyAnniversaryTheme();
-      return;
+    for (const occasion of specialOccasions) {
+      if (occasion.condition(startDate, currentDate)) {
+        applyTheme(occasion);
+        return;
+      }
     }
-    
-    if (startDay === currentDay) {
-      applyHeartsDayTheme();
-      return;
-    }
-    
-    if (currentMonth === 9 && currentDay === 31) {
-      applyHalloweenTheme();
-      return;
-    }
-    
-    if (currentMonth === 11 && currentDay === 25) {
-      applyChristmasTheme();
-      return;
-    }
-    
-    if (currentMonth === 0 && currentDay === 1) {
-      applyNewYearTheme();
-      return;
-    }
-    
-    const easterDate = calculateEaster(currentYear);
-    if (currentMonth === easterDate.getMonth() && currentDay === easterDate.getDate()) {
-      applyEasterTheme();
-      return;
-    }
-    
-    removeSpecialThemes();
+    clearAllThemesAndEffects();
   }
   
   function calculateEaster(year) {
@@ -177,72 +206,32 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Date(year, month - 1, day);
   }
   
-  function applyHeartsDayTheme() {
+  function applyTheme(theme) {
     clearAllThemesAndEffects();
-    dom.body.classList.add('hearts-day');
-    startInfiniteFloating('hearts', 1500);
-    startInfiniteFloating('emojis', 2000);
-    addSpecialMessage("❤️ Happy Monthsary! ❤️");
-  }
-  
-  function applyAnniversaryTheme() {
-    clearAllThemesAndEffects();
-    dom.body.classList.add('anniversary');
-    startInfiniteFloating('hearts', 1200);
-    startInfiniteFloating('emojis', 1800);
-    startInfiniteFloating('confetti', 1000);
-    addSpecialMessage("🎉 Happy Anniversary! 🎉");
-  }
-  
-  function applyHalloweenTheme() {
-    clearAllThemesAndEffects();
-    dom.body.classList.add('halloween');
-    startInfiniteFloating('halloween', 1500);
-    addSpecialMessage("🎃 Happy Halloween! 🎃");
-  }
-  
-  function applyChristmasTheme() {
-    clearAllThemesAndEffects();
-    dom.body.classList.add('christmas');
-    startInfiniteFloating('christmas', 1300);
-    startInfiniteFloating('confetti', 1600);
-    addSpecialMessage("🎄 Merry Christmas! 🎄");
-  }
-  
-  function applyNewYearTheme() {
-    clearAllThemesAndEffects();
-    dom.body.classList.add('new-year');
-    startInfiniteFloating('new-year', 1000);
-    startInfiniteFloating('confetti', 800);
-    addSpecialMessage("🎆 Happy New Year! 🎆");
-  }
-  
-  function applyEasterTheme() {
-    clearAllThemesAndEffects();
-    dom.body.classList.add('easter');
-    startInfiniteFloating('easter', 1500);
-    addSpecialMessage("🐰 Happy Easter! 🐰");
-  }
-  
-  function removeSpecialThemes() {
-    clearAllThemesAndEffects();
+    dom.body.classList.add(theme.name);
+    if (theme.effects) {
+      theme.effects.forEach(effect => {
+        startInfiniteFloating(effect.type, effect.interval);
+      });
+    }
+    addSpecialMessage(theme.message);
   }
 
   function clearAllThemesAndEffects() {
     activeIntervals.forEach(clearInterval);
     activeIntervals = [];
 
-    dom.body.classList.remove('hearts-day', 'anniversary', 'halloween', 'christmas', 'new-year', 'easter');
+    dom.body.classList.remove('hearts-day', 'anniversary', 'valentines', 'halloween', 'christmas', 'new-year', 'easter');
 
     const existingMessage = document.querySelector('.special-message');
     if (existingMessage) {
       existingMessage.remove();
     }
 
-    const floatingElements = document.querySelectorAll('.floating-heart, .floating-emoji, .confetti, .sparkle');
+    const floatingElements = document.querySelectorAll('.floating-emoji, .confetti, .sparkle');
     floatingElements.forEach(el => el.remove());
   }
-
+  // --- Floating Animations ---
   function startInfiniteFloating(type, interval) {
     const intervalId = setInterval(() => createSingleFloatingElement(type), interval);
     activeIntervals.push(intervalId);
@@ -250,13 +239,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createSingleFloatingElement(type) {
     let elements = [];
-    
+    let elementClass = 'floating-emoji';
+
     switch(type) {
       case 'hearts':
         elements = ['💖', '💕', '💘', '💝', '💓', '💗', '💞'];
-        break;
       case 'emojis':
-        elements = ['😍', '🥰', '😘', '❤️', '✨', '🌟'];
+        elements.push('😍', '🥰', '😘', '❤️', '✨', '🌟');
         break;
       case 'halloween':
         elements = ['🎃', '👻', '🕷️', '🕸️', '💀', '🦇', '🍬', '🍭'];
@@ -313,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomEmoji = elements[Math.floor(Math.random() * elements.length)];
     
     element.style.setProperty('--random-left', randomLeft);
-    element.classList.add('floating-emoji');
+    element.classList.add(elementClass);
     element.textContent = randomEmoji;
     
     const size = 20 + Math.random() * 20;
@@ -452,9 +441,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!userAnswer) return;
 
     if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
-      if (currentQuestion && !correctlyAnsweredIDs.includes(currentQuestion.ID)) {
+      if (!correctlyAnsweredIDs.includes(currentQuestion.ID)) {
         correctlyAnsweredIDs.push(currentQuestion.ID);
       }
+      // Remove the correctly answered question from the available pool for this round
+      availableQuestions = availableQuestions.filter(q => q.ID !== currentQuestion.ID);
       handleCorrectAnswer();
     } else {
       handleWrongAnswer();
@@ -462,8 +453,11 @@ document.addEventListener("DOMContentLoaded", () => {
     dom.qaInput.value = "";
   }
 
+  let availableQuestions = [];
+
   function askNewQuestion() {
     dom.modalScore.textContent = `Score: ${score} / ${scoreGoal}`;
+    correctlyAnsweredIDs = [];
 
     if (availableQuestions.length === 0) {
       availableQuestions = [...questions];
@@ -477,15 +471,16 @@ document.addEventListener("DOMContentLoaded", () => {
     dom.qaInput.focus();
   }
 
-  dom.showDetailsBtn.addEventListener('click', () => {
-    if (currentQuestion) {
-      availableQuestions.splice(availableQuestions.indexOf(currentQuestion), 1);
-    }
+  function resetGame() {
     score = 0;
     wrongAnswerCount = 0;
     availableQuestions = [...questions];
     askNewQuestion();
-  });
+  }
+
+  // --- Event Listeners ---
+
+  dom.showDetailsBtn.addEventListener('click', resetGame);
 
   dom.tryAgainBtn.addEventListener('click', () => {
     dom.tryAgainBtn.textContent = "Try Again";
@@ -493,13 +488,6 @@ document.addEventListener("DOMContentLoaded", () => {
     askNewQuestion();
   });
   
-  dom.qaSubmitBtn.addEventListener('click', () => {
-    checkAnswer();
-    if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
-      availableQuestions.splice(availableQuestions.indexOf(currentQuestion), 1);
-    }
-  });
-
   dom.qaSubmitBtn.addEventListener('click', checkAnswer);
   dom.qaInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
@@ -511,7 +499,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (wrongAnswerCount > 0) {
       dom.cancelBtn.click();
     } else {
-      correctlyAnsweredIDs = [];
       hideModal(dom.qaModal);
     }
   });
@@ -536,11 +523,42 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   dom.resultCloseBtn.addEventListener('click', () => hideModal(dom.resultModal));
   document.addEventListener('click', (e) => {
-    if (e.target === dom.qaModal || e.target === dom.resultModal) {
-      hideAllModals();
+    // Allow closing the result modal via overlay click ONLY if the game is won
+    // (i.e., the 'tryAgainBtn' is hidden). Otherwise, force user to use buttons.
+    const isGameWon = dom.tryAgainBtn.classList.contains('hidden');
+
+    if (e.target === dom.resultModal && isGameWon) {
+        hideModal(dom.resultModal);
     }
   });
 
+  function trapFocus(modal) {
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    firstElement?.focus();
+
+    const handleTabKeyPress = (e) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) { // Shift + Tab
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else { // Tab
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+    modal.addEventListener('keydown', handleTabKeyPress);
+  }
+  // --- Initialization ---
   async function initializeApp() {
     try {
       const response = await fetch('_source/js/game-data.json');
