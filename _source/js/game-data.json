@@ -10,7 +10,12 @@
     { "question": "What year did their relationship start?", "answer": "2023" },
     { "question": "On what day of the month is their anniversary?", "answer": "23" },
     { "question": "What is Kenneth's middle name?", "answer": "Jeroy" },
-    { "question": "On what day of the month is Lalace Ivy's birthday?", "answer": "25" }
+    { "question": "On what day of the month is Lalace Ivy's birthday?", "answer": "25" },
+    { "question": "What is Lalace Ivy's last name?", "answer": "Chan" },
+    { "question": "What year was Kenneth born?", "answer": "1995" },
+    { "question": "What year was Lalace Ivy born?", "answer": "1998" },
+    { "question": "On what day of the month is Kenneth's birthday?", "answer": "19" },
+    { "question": "What is Kenneth's full first name?", "answer": "Kenneth Irvin" }
   ],
   "wrongMessages": [
     { "msg": "Is that your final answer? Because it's not the right one! 😉", "emoji": "🤔" },

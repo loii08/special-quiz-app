@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let detailsTimeout = null;
   let score = 0;
   let wrongAnswerCount = 0;
-  const scoreGoal = 3;
+  const scoreGoal = 5;
 
   function showModal(modal) {
     modal.classList.remove('hidden');
