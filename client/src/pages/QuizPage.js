@@ -33,7 +33,7 @@ const QuizPage = () => {
         const fetchQuizData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/quiz/${quizId}`);
+                const response = await fetch(`/api/quiz/${quizId}`);
                 if (!response.ok) {
                     throw new Error('Quiz not found. Maybe the link is old or incorrect?');
                 }

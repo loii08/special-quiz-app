@@ -3,8 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import './CreateQuizPage.css';
 import { useAuth } from '../context/AuthContext';
 
-const API_URL = process.env.REACT_APP_API_URL || '';
-
 const CreateQuizPage = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -34,7 +32,7 @@ const CreateQuizPage = () => {
         if (editQuizId) {
             const fetchQuizForEdit = async () => {
                 try {
-                    const response = await fetch(`${API_URL}/api/quiz/edit/${editQuizId}`, {
+                    const response = await fetch(`/api/quiz/edit/${editQuizId}`, {
                         headers: { 'x-auth-token': token }
                     });
                     if (!response.ok) throw new Error('Quiz not found for editing.');
@@ -102,7 +100,7 @@ const CreateQuizPage = () => {
 
         setImageUploadStatus('uploading');
         try {
-            const response = await fetch(`${API_URL}/api/upload`, {
+            const response = await fetch(`/api/upload`, {
                 method: 'POST',
                 headers: { 'x-auth-token': token },
                 body: formData,
@@ -165,8 +163,8 @@ const CreateQuizPage = () => {
         try {
             const isEditing = !!editQuizId;
             const url = isEditing 
-                ? `${API_URL}/api/quiz/${editQuizId}` 
-                : `${API_URL}/api/quiz`;
+                ? `/api/quiz/${editQuizId}` 
+                : `/api/quiz`;
             
             const method = isEditing ? 'PUT' : 'POST';
 

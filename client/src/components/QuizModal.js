@@ -36,8 +36,8 @@ const QuizModal = ({ gameData, onSuccess, onClose }) => {
         const fetchMessages = async () => {
             try {
                 const [wrongRes, cancelRes] = await Promise.all([
-                    fetch(`${process.env.REACT_APP_API_URL}/api/messages/wrong`),
-                    fetch(`${process.env.REACT_APP_API_URL}/api/messages/cancel`)
+                    fetch(`/api/messages/wrong`),
+                    fetch(`/api/messages/cancel`)
                 ]);
                 setGlobalWrongMessages(await wrongRes.json());
                 setGlobalCancelMessages(await cancelRes.json());

@@ -30,7 +30,7 @@ const AuthModal = () => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/login`, {
+            const response = await fetch(`/api/users/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData),
@@ -53,7 +53,7 @@ const AuthModal = () => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/register`, {
+            const response = await fetch(`/api/users/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registerData),

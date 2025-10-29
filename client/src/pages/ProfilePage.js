@@ -16,7 +16,7 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/quiz/my-quizzes`, {
+                const response = await fetch(`/api/quiz/my-quizzes`, {
                     headers: { 'x-auth-token': token }
                 });
                 if (!response.ok) throw new Error('Failed to fetch quizzes');
@@ -51,7 +51,7 @@ const ProfilePage = () => {
     const confirmDelete = async () => {
         if (!quizToDelete) return;
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/quiz/${quizToDelete}`, {
+            const response = await fetch(`/api/quiz/${quizToDelete}`, {
                 method: 'DELETE',
                 headers: { 'x-auth-token': token }
             });
