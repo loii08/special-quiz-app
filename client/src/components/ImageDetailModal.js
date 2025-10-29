@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import './ImageDetailModal.css';
 
 const ImageDetailModal = ({ imageUrl, title, body, onClose }) => {
-    if (!imageUrl) return null;
-
     useEffect(() => {
         document.body.classList.add('modal-open');
 
@@ -11,6 +9,8 @@ const ImageDetailModal = ({ imageUrl, title, body, onClose }) => {
             document.body.classList.remove('modal-open');
         };
     }, []);
+
+    if (!imageUrl) return null;
 
     return (
         <div className="image-detail-modal-overlay" onClick={onClose}>
