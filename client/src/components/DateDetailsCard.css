@@ -1,0 +1,70 @@
+.date-display-container {
+    background: rgba(var(--light-rgb), 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .date-item {
+    text-align: center;
+  }
+  
+  .date-label {
+    font-size: 0.9rem;
+    color: rgba(var(--light-rgb), 0.7);
+    margin-bottom: 8px;
+  }
+  
+  .date-value-display {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  
+  .date-divider {
+    font-size: 1rem;
+    color: rgba(var(--light-rgb), 0.7);
+    font-weight: 600;
+  }
+  
+  .time-span {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #111; /* Always use dark text on the bright gradient */
+    padding: 25px;
+    border-radius: 16px;
+    margin-top: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .light-mode .time-span {
+    color: #111;
+  }
+  
+  .time-breakdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px 0;
+    gap: 10px;
+  }
+  
+  .total-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .total-days, .total-months {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    flex: 1;
+  }

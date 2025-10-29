@@ -1,0 +1,62 @@
+.auth-modal-content {
+    background: var(--card-bg); 
+    padding: 32px;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    color: var(--light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-modal-body {
+}
+
+.light-mode .auth-modal-content {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+ 
+.form-container {
+    animation: form-fade-in 0.4s ease-in;
+}
+
+@keyframes form-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-footer-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(var(--light-rgb), 0.7);
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+}
+
+.auth-modal-content .modal-close-icon {
+    top: 12px;
+    right: 12px;
+    background: rgba(var(--light-rgb), 0.1);
+    color: rgba(var(--light-rgb), 0.7);
+    border: none;
+    box-shadow: none;
+}
+
+.auth-modal-content .modal-close-icon:hover {
+    background: rgba(var(--light-rgb), 0.2);
+    color: var(--light);
+    transform: scale(1.1);
+}

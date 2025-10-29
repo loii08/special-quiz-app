@@ -1,0 +1,34 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
+dotenv.config();
+connectDB();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
+].filter(Boolean);
+
+const corsOptions = {
+  origin: allowedOrigins,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+app.use('/api/quiz', require('./routes/quizRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes'));
+
+module.exports = app;
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
