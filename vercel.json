@@ -9,7 +9,8 @@
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "installCommand": "npm install",
+        "distDir": "client/build"
       }
     }
   ],
@@ -19,12 +20,12 @@
       "dest": "/server/server.js"
     },
     {
+      "src": "/static/(.*)",
+      "dest": "/client/build/static/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/index.html",
-      "status": 200,
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      }
+      "dest": "/client/build/index.html"
     }
   ]
 }
