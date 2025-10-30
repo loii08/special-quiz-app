@@ -4,34 +4,9 @@
     {
       "src": "server/server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
     }
   ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/server"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/client/build/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; frame-src https://vercel.live; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://res.cloudinary.com; connect-src 'self' https://api.realinspire.live;"
-        }
-      ]
-    }
+  "routes": [
+    { "src": "/(.*)", "dest": "server/server.js" }
   ]
 }

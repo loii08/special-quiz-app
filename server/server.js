@@ -37,8 +37,17 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
-module.exports = app;
+// Serve static React build in production
+if (process.env.NODE_ENV === 'production') {
+  const buildPath = path.join(__dirname, '../client/build');
+  app.use(express.static(buildPath));
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
 }
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+module.exports = app;
