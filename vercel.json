@@ -19,6 +19,9 @@
       "destination": "/server/server.js"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
