@@ -89,7 +89,7 @@
 
 @media (min-width: 768px) {
     .image-detail-modal-content {
-        width: 90vw;
+        width: 100vw;
         height: 80vh;
         grid-template-rows: 1fr;
         grid-template-columns: 1.75fr 1fr;
