@@ -13,3 +13,5 @@
 # Cache
 /.cache
 /client/.cache
+
+/server/.env
