@@ -16,11 +16,11 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/server/server.js"
+      "destination": "/api/server"
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/client/build/$1"
     }
   ],
   "headers": [
