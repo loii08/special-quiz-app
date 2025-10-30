@@ -19,8 +19,8 @@
       "destination": "/server/server.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/((?!api/|static/|.*\\..*).*)",
+      "destination": "/"
     }
   ],
   "headers": [
