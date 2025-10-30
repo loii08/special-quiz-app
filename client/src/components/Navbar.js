@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const { isAuthenticated, logout, setAuthModalOpen } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const onProfilePage = location.pathname === '/profile';
 
     const handleLogout = () => {
         logout();
@@ -13,8 +15,12 @@ const Navbar = () => {
 
     const authLinks = (
         <>
-            <li><Link to="/profile">My Quizzes</Link></li>
-            <li><button onClick={handleLogout} className="logout-button">Sign Out</button></li>
+            {!onProfilePage && (
+                <>
+                    <li><Link to="/profile">Profile</Link></li>
+                    <li><button onClick={handleLogout} className="link-button">Logout</button></li>
+                </>
+            )}
         </>
     );
 

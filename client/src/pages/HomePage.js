@@ -6,6 +6,14 @@ const HomePage = () => {
     const { isAuthenticated, setAuthModalOpen } = useAuth();
     const navigate = useNavigate();
 
+    const handleGetStarted = () => {
+        if (isAuthenticated) {
+            navigate('/profile');
+        } else {
+            setAuthModalOpen(true, 'login');
+        }
+    };
+
     return (
         <div className="main-wrapper">
             <div className="card landing-page-card">
@@ -31,7 +39,7 @@ const HomePage = () => {
                 </div>
 
                 <button 
-                    onClick={() => isAuthenticated ? navigate('/create') : setAuthModalOpen(true, 'login')} 
+                    onClick={() => isAuthenticated ? navigate('/profile') : setAuthModalOpen(true, 'login')} 
                     className="interactive-button"
                 >
                     Get Started

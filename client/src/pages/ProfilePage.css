@@ -1,0 +1,361 @@
+/* --- Profile Page Styles --- */
+.profile-header {
+    display: flex;
+    flex-direction: column; /* Stack on mobile by default */
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quiz-counter {
+    background: rgba(var(--light-rgb), 0.1);
+    padding: 0.5rem 1rem; /* Increased padding for better visibility */
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem; /* Increased font size */
+}
+
+.quiz-list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.quiz-list-item {
+    background: rgba(var(--light-rgb), 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(var(--light-rgb), 0.1);
+}
+
+.quiz-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.quiz-list-item a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.quiz-date {
+    font-size: 0.8rem;
+    color: rgba(var(--light-rgb), 0.6);
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: rgba(var(--light-rgb), 0.1);
+    border: 1px solid rgba(var(--light-rgb), 0.2);
+    color: var(--light);
+    padding: 8px 12px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn:hover {
+    background: var(--primary);
+    color: var(--button-text);
+    border-color: var(--primary);
+}
+
+/* No Quizzes Empty State */
+.no-quizzes-container {
+    text-align: center;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.no-quizzes-icon {
+    font-size: 48px;
+    line-height: 1;
+}
+
+/* User Profile Header */
+.user-profile-header {
+  text-align: center;
+}
+
+.user-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--button-text);
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+  text-transform: uppercase;
+}
+
+/* Divider */
+.divider {
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 1rem auto;
+}
+
+.user-profile-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.user-email {
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+}
+
+/* Profile Page Layout */
+.profile-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.user-details-card, .quizzes-card {
+  width: 50vw;
+  transition: all 0.3s ease;
+}
+
+.user-card-logout-btn {
+  background-color: rgba(239, 68, 68, 0.1); /* red-500 with 10% opacity */
+  border: 1px solid rgba(239, 68, 68, 0.4); /* red-500 with 40% opacity */
+  color: #f87171; /* red-400 */
+  padding: 10px 20px;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  width: 50%;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+}
+
+.user-card-logout-btn:hover {
+  background-color: #ef4444; /* red-500 */
+  color: white;
+}
+
+/* --- Loading Skeleton Styles --- */
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton {
+    animation: skeleton-shimmer 1.5s infinite linear;
+    background: linear-gradient(90deg, var(--hover-bg, rgba(255, 255, 255, 0.05)) 25%, var(--card-bg) 50%, var(--hover-bg, rgba(255, 255, 255, 0.05)) 75%);
+    background-size: 200% 100%;
+}
+
+.skeleton-line {
+    height: 1em;
+    border-radius: 4px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+.skeleton-line-lg {
+    width: 50%;
+    height: 1.5em;
+    margin: 0 auto 10px;
+}
+
+.skeleton-line-md {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.skeleton-line-xl {
+    width: 40%;
+    height: 1.8em;
+}
+
+.user-profile-header-skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.skeleton-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+.user-card-logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.6);
+  color: white;
+}
+
+/* --- Loading Skeleton Styles --- */
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton {
+    animation: skeleton-shimmer 1.5s infinite linear;
+    background: linear-gradient(90deg, var(--hover-bg, rgba(255, 255, 255, 0.05)) 25%, var(--card-bg) 50%, var(--hover-bg, rgba(255, 255, 255, 0.05)) 75%);
+    background-size: 200% 100%;
+}
+
+.skeleton-line {
+    height: 1em;
+    border-radius: 4px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+.skeleton-line-lg {
+    width: 50%;
+    height: 1.5em;
+    margin: 0 auto 10px;
+}
+
+.skeleton-line-md {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.skeleton-line-xl {
+    width: 40%;
+    height: 1.8em;
+}
+
+.user-profile-header-skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.skeleton-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+.profile-header-skeleton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.skeleton-button {
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+.quiz-list-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skeleton-quiz-item {
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.05));
+}
+
+@media (max-width: 767px) {
+    .action-btn-text {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-details-card, .quizzes-card {
+    width: 95vw;
+    transition: all 0.3s ease;
+    }
+}
+
+@media (min-width: 768px) {
+  .profile-page-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .user-details-card {
+    flex: 0 0 320px;
+  }
+
+  .user-profile-header {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .user-stats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px 0;
+    border-top: 1px solid rgba(var(--light-rgb), 0.1);
+    border-bottom: 1px solid rgba(var(--light-rgb), 0.1);
+    margin-top: 20px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(var(--light-rgb), 0.7);
+  }
+
+  .user-card-actions {
+    margin-top: auto;
+    padding-top: 20px;
+  }
+}

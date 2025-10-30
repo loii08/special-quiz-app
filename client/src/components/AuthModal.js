@@ -12,6 +12,7 @@ const AuthModal = () => {
     const [loginData, setLoginData] = useState({ email: '', password: '' });
     const [registerData, setRegisterData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const modalBodyRef = useRef(null);
 
     useEffect(() => {
@@ -20,6 +21,7 @@ const AuthModal = () => {
 
     const switchView = (newView) => {
         setError('');
+        setIsLoading(false);
         setView(newView);
     };
 
@@ -29,42 +31,51 @@ const AuthModal = () => {
     const handleLoginSubmit = async e => {
         e.preventDefault();
         setError('');
+        setIsLoading(true);
         try {
             const response = await fetch(`/api/users/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData),
             });
+
             const data = await response.json();
-            if (!response.ok) throw new Error(data.errors ? data.errors[0].msg : 'Login failed.');
+            if (!response.ok) {
+                // Use the error message from the server, or a default one.
+                throw new Error(data.message || data.errors?.[0]?.msg || 'Login failed. Please check your credentials.');
+            }
             login(data.token);
             setAuthModalOpen(false);
-            if (data.hasQuizzes) {
-                navigate('/profile');
-            } else {
-                navigate('/create');
-            }
+            navigate('/profile');
         } catch (err) {
             setError(err.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleRegisterSubmit = async e => {
         e.preventDefault();
         setError('');
+        setIsLoading(true);
         try {
             const response = await fetch(`/api/users/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registerData),
             });
+
             const data = await response.json();
-            if (!response.ok) throw new Error(data.errors ? data.errors[0].msg : 'Registration failed.');
+            if (!response.ok) {
+                throw new Error(data.message || data.errors?.[0]?.msg || 'Registration failed. Please try again.');
+            }
             login(data.token);
             setAuthModalOpen(false);
             navigate('/create');
         } catch (err) {
             setError(err.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -81,7 +92,7 @@ const AuthModal = () => {
                     <input id="login-password" type="password" name="password" value={loginData.password} onChange={handleLoginChange} required />
                 </div>
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit" className="interactive-button">Login</button>
+                <button type="submit" className="interactive-button" disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</button>
             </form>
             <p className="form-footer-text">
                 Don't have an account? <button onClick={() => switchView('register')} className="link-button">Sign Up</button>
@@ -106,7 +117,7 @@ const AuthModal = () => {
                     <input id="register-password" type="password" name="password" value={registerData.password} onChange={handleRegisterChange} required />
                 </div>
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit" className="primary-button">Register</button>
+                <button type="submit" className="primary-button" disabled={isLoading}>{isLoading ? 'Registering...' : 'Register'}</button>
             </form>
             <p className="form-footer-text">
                 Already have an account? <button onClick={() => switchView('login')} className="link-button">Sign In</button>

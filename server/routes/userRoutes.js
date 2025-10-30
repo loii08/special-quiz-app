@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel.js');
 const Quiz = require('../models/quizModel.js');
+const auth = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -77,5 +78,19 @@ router.post(
     }
   }
 );
+
+// @route   GET api/users/me
+// @desc    Get current user's profile
+// @access  Private
+router.get('/me', auth, async (req, res) => {
+  try {
+    // req.user is set by the auth middleware
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

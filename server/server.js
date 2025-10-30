@@ -1,11 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
 // Explicitly configure dotenv to find the .env file in the server directory
 dotenv.config({ path: path.resolve(__dirname, './.env') });
+
+// Configure Cloudinary with your credentials from .env
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 connectDB();
 
 const app = express();
