@@ -9,6 +9,7 @@ const ProfilePage = () => {
     const [quizCount, setQuizCount] = useState(0);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [copyStatus, setCopyStatus] = useState({});
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [quizToDelete, setQuizToDelete] = useState(null);
@@ -35,8 +36,9 @@ const ProfilePage = () => {
                 setQuizzes(quizzesData.quizzes);
                 setQuizCount(quizzesData.quizCount);
                 setUser(userData);
-            } catch (error) {
-                console.error(error);
+            } catch (err) {
+                console.error(err);
+                setError('Could not load your profile. Please try refreshing the page.');
             } finally {
                 setLoading(false);
             }
@@ -106,6 +108,17 @@ const ProfilePage = () => {
                         <div className="skeleton-quiz-item"></div>
                         <div className="skeleton-quiz-item"></div>
                     </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="main-wrapper">
+                <div className="card">
+                    <h2>Something Went Wrong</h2>
+                    <p className="error-message">{error}</p>
                 </div>
             </div>
         );
