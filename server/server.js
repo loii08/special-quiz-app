@@ -4,7 +4,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
-dotenv.config();
+// Explicitly configure dotenv to find the .env file in the server directory
+dotenv.config({ path: path.resolve(__dirname, './.env') });
 connectDB();
 
 const app = express();
