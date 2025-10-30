@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { spawn as launchConfetti } from '../utils/canvasConfetti.js';
 import { createFallingEmojis } from '../utils/domAnimations.js';
 
@@ -21,6 +21,13 @@ const QuizModal = ({ gameData, onSuccess, onClose }) => {
 
     const scoreGoal = gameData?.scoreGoal || 1;
 
+    const askNewQuestion = useCallback((questionsPool) => {
+        if (questionsPool.length > 0) {
+            const questionIndex = Math.floor(Math.random() * questionsPool.length); 
+            setCurrentQuestion(questionsPool[questionIndex]);
+        }
+    }, []);
+
     useEffect(() => {
         if (gameData && gameData.questions.length > 0) {
             if (availableQuestions.length === 0) {
@@ -29,8 +36,7 @@ const QuizModal = ({ gameData, onSuccess, onClose }) => {
                 askNewQuestion(initialQuestions);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [gameData]);
+    }, [gameData, availableQuestions.length, askNewQuestion]);
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -105,13 +111,6 @@ const QuizModal = ({ gameData, onSuccess, onClose }) => {
         askNewQuestion(availableQuestions);
         setUserAnswer('');
         setModalState('asking');
-    };
-
-    const askNewQuestion = (questionsPool) => {
-        if (questionsPool.length > 0) {
-            const questionIndex = Math.floor(Math.random() * questionsPool.length); 
-            setCurrentQuestion(questionsPool[questionIndex]);
-        }
     };
 
     const handleCancel = () => {
